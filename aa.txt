@@ -3,6 +3,7 @@ local supported = {2572204670, 5278850819}
 local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
 local status
 local msg
+local db = true
 local nam = ""
 for i=1, 10 do
     local rand = math.random(#char)
@@ -12,7 +13,8 @@ for i,v in ipairs(supported) do
     if game.PlaceId == supported[i] then
         status = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
         msg = "cool"
-    else
+        db = false
+    elseif db then
         status = "not supported"
         msg = "why"
     end
@@ -28,6 +30,7 @@ game.StarterGui:SetCore("SendNotification", {
 
 if game.PlaceId == 2572204670 then
     while true do
+        wait(.2)
         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
     end
 elseif game.PlaceId == 5278850819 then
