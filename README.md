@@ -1,4 +1,9 @@
 # roblox-alt-autofarm
+version format: X.Y.Z
+X - new game is added
+Y - old game's script changed significantly
+Z - old game's script has been patched
+
 ok this will be some kind of change log
 
 1.0.0
