@@ -470,33 +470,3 @@ elseif game.PlaceId == 6403373529 then -- slap battles
         end)
     end)
 end
-        status = "not supported"
-        msg = "why"
-    end
-end
-game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm by serglight 1.0"; 
-    Text     = "Game: " ..status; 
-    Icon     = ""; 
-    Duration = 10;
-    Callback = bindableFunction;
-    Button1  = msg;
-})
-
-if game.PlaceId == 2572204670 then
-    while true do
-        wait(.2)
-        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
-    end
-elseif game.PlaceId == 5278850819 then
-    local part = Instance.new("part")
-    part.Anchored = true
-    part.CanCollide = false
-    part.Parent = game.Workspace
-    part.Name = nams
-    part.Position = Vector3.new(0, 1, -24)
-    while true do
-        wait(.2)
-        game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(part.Position)
-    end
-end
