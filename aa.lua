@@ -17,7 +17,7 @@ end
 local function followGui(desc) -- follow gui function
     local follow = ""
     local fgui = Instance.new("ScreenGui")
-    fgui.Parent = game.CoreGui
+    fgui.Parent = game.Players.LocalPlayer.PlayerGui
     local fgui2 = Instance.new("TextBox")
     fgui2.BackgroundColor3 = Color3.new(1,1,1)
     fgui2.Parent = gui
@@ -84,7 +84,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm by serglight 1.1.0"; 
+    Title    = "Alt Autofarm by serglight 2.0.0"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
