@@ -1,20 +1,4 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick
-local supported = {2572204670, 5278850819}
-local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
-local status
-local msg
-local db = true
-local nam = ""
-for i=1, 10 do
-    local rand = math.random(#char)
-    nam = nam..char[rand]
-end
-for i,v in ipairs(supported) do
-    if game.PlaceId == supported[i] then
-        status = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-        msg = "cool"
-        db = false
-    elseif db thenloadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
+loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
 -- settings
 -- none actually
 -- script itself, dont change anything
@@ -100,7 +84,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm by serglight 1.0"; 
+    Title    = "Alt Autofarm by serglight 1.1.0"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
