@@ -6,3 +6,6 @@ released, two games are supported: M U G E N and stay alive and flex your time o
 
 1.0.1
 fixed mugen and made the notification work properly
+
+2.0.0
+added slap battles (its a very cool gui!!!)
