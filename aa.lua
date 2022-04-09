@@ -1,6 +1,6 @@
 loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
--- settings
--- none actually
+-- settings (wip)
+local mainAcc = "UsernameOfYourMainAccountHere"
 -- script itself, dont change anything
 local supported = {2572204670, 5278850819, 6403373529}
 local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
@@ -17,16 +17,16 @@ end
 local function followGui(desc) -- follow gui function
     local follow = ""
     local fgui = Instance.new("ScreenGui")
-    fgui.Parent = game.Players.LocalPlayer.PlayerGui
+    fgui.Parent = game.CoreGui
     local fgui2 = Instance.new("TextBox")
     fgui2.BackgroundColor3 = Color3.new(1,1,1)
-    fgui2.Parent = gui
+    fgui2.Parent = fgui
     fgui2.AnchorPoint = Vector2.new(0.5, 0.5)
     fgui2.Position = UDim2.new(0.5, 0, 0.5, 0)
     fgui2.Size = UDim2.new(0.25, 0, 0.25, 0)
     fgui2.TextScaled = true
     local fgui3 = Instance.new("TextButton")
-    fgui3.Parent = gui
+    fgui3.Parent = fgui
     fgui3.AnchorPoint = Vector2.new(0.5, 0.5)
     fgui3.Position = UDim2.new(0.437, 0, 0.657, 0)
     fgui3.Text = "X"
@@ -35,7 +35,7 @@ local function followGui(desc) -- follow gui function
     fgui3.Size = UDim2.new(0.125, 0, 0, 50)
     fgui3.TextScaled = true
     local fgui4 = Instance.new("TextButton")
-    fgui4.Parent = gui
+    fgui4.Parent = fgui
     fgui4.AnchorPoint = Vector2.new(0.5, 0.5)
     fgui4.Position = UDim2.new(0.562, 0, 0.657, 0)
     fgui4.Text = "V"
@@ -45,7 +45,7 @@ local function followGui(desc) -- follow gui function
     fgui4.TextScaled = true
     local fgui5 = Instance.new("TextLabel")
     fgui5.BackgroundColor3 = Color3.new(1,1,1)
-    fgui5.Parent = gui
+    fgui5.Parent = fgui
     fgui5.AnchorPoint = Vector2.new(0.5, 0.5)
     fgui5.Position = UDim2.new(0.5, 0, 0.228, 0)
     fgui5.Size = UDim2.new(0.25, 0, 0.293, 0)
@@ -84,7 +84,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm by serglight 2.0.0"; 
+    Title    = "Alt Autofarm by serglight 2.0.1"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
@@ -328,7 +328,7 @@ elseif game.PlaceId == 6403373529 then -- slap battles
     TextLabel_7.Position = UDim2.new(0.1, 0, 0.2, 0)
     TextLabel_7.Size = UDim2.new(0.1, 0, 0.1, 0)
     TextLabel_7.Font = Enum.Font.SourceSans
-    TextLabel_7.Text = "Self explanatory, auto deletes all megarocks and custom rocks (i will add this later)"
+    TextLabel_7.Text = "Self explanatory, auto deletes all megarocks and custom rocks"
     TextLabel_7.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextLabel_7.TextScaled = true
 
