@@ -14,7 +14,7 @@ released, two games are supported: M U G E N and stay alive and flex your time o
 fixed mugen and made the notification work properly
 
 2.0.0
-added slap battles (its a very cool gui!!!)
+added slap battles (its a very cool gui!!! IT HAS FOLLOW GUI!!!!!!!!!!!!!!)
 
 2.0.1
 fixed follow gui (probably)
