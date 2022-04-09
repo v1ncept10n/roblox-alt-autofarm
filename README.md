@@ -14,3 +14,6 @@ fixed mugen and made the notification work properly
 
 2.0.0
 added slap battles (its a very cool gui!!!)
+
+2.0.1
+fixed follow gui (probably)
