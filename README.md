@@ -34,3 +34,6 @@ ACTUALLY fixed follow gui, new setting added
 
 2.1.3
 waitforchild in follow gui timeout 11 --> 60
+
+2.1.4
+prob fixed follow gui sometimes stopping following a player for no reason
