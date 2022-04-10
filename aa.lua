@@ -59,10 +59,10 @@ local function followGui(desc) -- follow gui function
         end
     end)
     fgui4.MouseButton1Up:Connect(function()
-        follow = gui2.Text
+        follow = fgui2.Text
         for i,v in pairs(game.Players:GetChildren()) do
             if v.Name == follow then
-                gui:Destroy()
+                fgui:Destroy()
                 while true do
                     wait(.1)
                     game.Players.LocalPlayer.Character:WaitForChild("Humanoid",11):MoveTo(v.Character:WaitForChild("HumanoidRootPart",11).Position)
