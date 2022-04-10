@@ -1,11 +1,15 @@
 # roblox-alt-autofarm
+
+hi this is rolbox alt autofarm thing. this makes your alt accounts automated and do all the stuff for you (all you need to do is check your main account, maybe)
+i will try to add as many games that support alt farming as i can
+
+changelog
+
 version format: X.Y.Z
 
 X - new game is added;
 Y - old game's script changed significantly (that includes new features);
 Z - old game's script has been unpatched/minor changes to script.
-
-changelog
 
 1.0.0
 released, two games are supported: M U G E N and stay alive and flex your time on others
