@@ -5,7 +5,7 @@ X - new game is added;
 Y - old game's script changed significantly (that includes new features);
 Z - old game's script has been unpatched/minor changes to script.
 
-ok this will be some kind of change log
+changelog
 
 1.0.0
 released, two games are supported: M U G E N and stay alive and flex your time on others
