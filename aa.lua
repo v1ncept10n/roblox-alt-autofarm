@@ -68,7 +68,9 @@ local function followGui(desc) -- follow gui function
                 fgui:Destroy()
                 while true do
                     wait(.1)
-                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid",60):MoveTo(v.Character:WaitForChild("HumanoidRootPart",60).Position)
+                    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") then
+                        game.Players.LocalPlayer.Character:WaitForChild("Humanoid",60):MoveTo(v.Character:WaitForChild("HumanoidRootPart",60).Position)
+                    end
                 end
             end
         end
@@ -99,7 +101,6 @@ if game.PlaceId == 2572204670 then -- mugen
         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
     end
 elseif game.PlaceId == 5278850819 then -- saafytoo
-    game.Workspace.Structure.KillPart:Destroy()
     local silentpart = Instance.new("Part", game.Workspace)
     silentpart.Position = Vector3.new(0, -4, 0)
     silentpart.Anchored = true
