@@ -87,7 +87,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 2.1.3 by serglight"; 
+    Title    = "Alt Autofarm 2.1.4 by serglight"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
