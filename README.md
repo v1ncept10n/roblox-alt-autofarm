@@ -21,3 +21,6 @@ fixed follow gui (probably)
 
 2.1.0
 saafytoo has been rescripted into a gui
+
+2.1.1
+removed silent in saafytoo because anticheat is too good (and i didnt script it anyway)
