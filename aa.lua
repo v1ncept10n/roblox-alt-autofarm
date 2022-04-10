@@ -68,7 +68,7 @@ local function followGui(desc) -- follow gui function
                 fgui:Destroy()
                 while true do
                     wait(.1)
-                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid",11):MoveTo(v.Character:WaitForChild("HumanoidRootPart",11).Position)
+                    game.Players.LocalPlayer.Character:WaitForChild("Humanoid",60):MoveTo(v.Character:WaitForChild("HumanoidRootPart",60).Position)
                 end
             end
         end
@@ -85,7 +85,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 2.1.2 by serglight"; 
+    Title    = "Alt Autofarm 2.1.3 by serglight"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
