@@ -24,3 +24,6 @@ saafytoo has been rescripted into a gui
 
 2.1.1
 removed silent in saafytoo because anticheat is too good (and i didnt script it anyway) + some other little changes
+
+2.1.2
+ACTUALLY fixed follow gui, new setting added
