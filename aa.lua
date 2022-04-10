@@ -8,7 +8,6 @@ local status
 local msg
 local db = true
 local nam = ""
-local follow = ""
 local notfollowing = true
 for i=1, 10 do
     local rand = math.random(#char)
@@ -84,7 +83,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm by serglight 2.0.1"; 
+    Title    = "Alt Autofarm 2.1.0 by serglight"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
@@ -98,17 +97,296 @@ if game.PlaceId == 2572204670 then -- mugen
         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
     end
 elseif game.PlaceId == 5278850819 then -- saafytoo
-    followGui("paste the @username and press V to make the bot go to this player (you can't change the player, keep that in mind), otherwise press X (bots will be walking outside of safe zone); also if the gui doesnt close when you pressed V, you probably made a typo in username; WARNING: IF YOU PRESS V THEN THIS WILL STOP WORKING IF PLAYER WHO IS FOLLOWED LEAVES THE GAME")
-    local part = Instance.new("part")
-    part.Anchored = true
-    part.CanCollide = false
-    part.Parent = game.Workspace
-    part.Name = nams
-    part.Position = Vector3.new(0, 1, -24)
-    while notfollowing do
-        wait(.2)
-        game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(part.Position)
-    end
+    game.Workspace.Structure.KillPart:Destroy()
+    local silentpart = Instance.new("Part", game.Workspace)
+    silentpart.Position = Vector3.new(0, -4, 0)
+    silentpart.Anchored = true
+    silentpart.Size = Vector3.new(128,1,128)
+    silentpart.Name = nam
+    local walkpart = Instance.new("Part", game.Workspace)
+    walkpart.Position = Vector3.new(0, 1, -24)
+    walkpart.Anchored = true
+    walkpart.CanCollide = false
+    walkpart.Transparency = 1
+    walkpart.Name = nam
+    local ScreenGui = Instance.new("ScreenGui")
+    local TextButton = Instance.new("TextButton")
+    local TextLabel = Instance.new("TextLabel")
+    local TextLabel_2 = Instance.new("TextLabel")
+    local TextLabel_3 = Instance.new("TextLabel")
+    local TextLabel_4 = Instance.new("TextLabel")
+    local TextButton_2 = Instance.new("TextButton")
+    local TextLabel_5 = Instance.new("TextLabel")
+    local TextButton_3 = Instance.new("TextButton")
+    local TextButton_4 = Instance.new("TextButton")
+    local Frame = Instance.new("Frame")
+    local Frame_2 = Instance.new("Frame")
+    local ImageLabel = Instance.new("ImageLabel")
+    local Down = Instance.new("TextButton")
+    local Up = Instance.new("TextButton")
+    local Left = Instance.new("TextButton")
+    local Right = Instance.new("TextButton")
+    local TextLabel_6 = Instance.new("TextLabel")
+    local TextButtonH = Instance.new("TextButton")
+
+    local autowalk = false
+    local markpos = false
+    local silent = false
+
+    ScreenGui.Parent = game.CoreGui
+
+    Frame_2.Parent = ScreenGui
+    Frame_2.BackgroundTransparency = 1
+    Frame_2.Size = UDim2.new(1, 0, 1, 0)
+
+    TextButtonH.Parent = ScreenGui
+    TextButtonH.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButtonH.BackgroundTransparency = 0.3
+    TextButtonH.Position = UDim2.new(0.2, 0, 0, 0)
+    TextButtonH.Size = UDim2.new(0.1, 0, 0.05, 0)
+    TextButtonH.Font = Enum.Font.SourceSans
+    TextButtonH.Text = "Hide/Open"
+    TextButtonH.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButtonH.TextScaled = true
+
+    TextButton.Parent = Frame_2
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 0.35
+    TextButton.Position = UDim2.new(0.8, 0, 0.1, 0)
+    TextButton.Size = UDim2.new(0.1, 0, 0.15, 0)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = "Follower GUI"
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextScaled = true
+
+    TextLabel.Parent = ScreenGui
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 0.5
+    TextLabel.Position = UDim2.new(0.9, 0, 0.1, 0)
+    TextLabel.Size = UDim2.new(0.1, 0, 0.15, 0)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = "Make the bot autowalk to any player you wish (a GUI will show up with instructions)"
+    TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.TextScaled = true
+
+    TextLabel_2.Parent = ScreenGui
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 0.5
+    TextLabel_2.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.Text = "Main"
+    TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_2.TextScaled = true
+
+    TextLabel_3.Parent = ScreenGui
+    TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_3.BackgroundTransparency = 0.5
+    TextLabel_3.Position = UDim2.new(0.8, 0, 0, 0)
+    TextLabel_3.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextLabel_3.Font = Enum.Font.SourceSans
+    TextLabel_3.Text = "Others"
+    TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_3.TextScaled = true
+
+    TextLabel_4.Parent = Frame_2
+    TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_4.BackgroundTransparency = 0.5
+    TextLabel_4.Position = UDim2.new(0.1, 0, 0.1, 0)
+    TextLabel_4.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextLabel_4.Font = Enum.Font.SourceSans
+    TextLabel_4.Text = "Autowalk to the point you marked using the button below (default position: down)"
+    TextLabel_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_4.TextScaled = true
+
+    TextButton_2.Parent = Frame_2
+    TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_2.BackgroundTransparency = 0.35
+    TextButton_2.Position = UDim2.new(0, 0, 0.1, 0)
+    TextButton_2.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextButton_2.Font = Enum.Font.SourceSans
+    TextButton_2.Text = "Autowalk"
+    TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_2.TextScaled = true
+
+    TextLabel_5.Parent = Frame_2
+    TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_5.BackgroundTransparency = 0.5
+    TextLabel_5.Position = UDim2.new(0.4, 0, 0.1, 0)
+    TextLabel_5.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextLabel_5.Font = Enum.Font.SourceSans
+    TextLabel_5.Text = "All it does is ground becomes cancollide false and killbrick is gone, there's a big platform below)"
+    TextLabel_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_5.TextScaled = true
+
+    TextButton_3.Parent = Frame_2
+    TextButton_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_3.BackgroundTransparency = 0.35
+    TextButton_3.Position = UDim2.new(0.3, 0, 0.1, 0)
+    TextButton_3.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextButton_3.Font = Enum.Font.SourceSans
+    TextButton_3.Text = "Silent"
+    TextButton_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_3.TextScaled = true
+
+    TextButton_4.Parent = Frame_2
+    TextButton_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_4.BackgroundTransparency = 0.35
+    TextButton_4.Position = UDim2.new(0.1, 0, 0.2, 0)
+    TextButton_4.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextButton_4.Font = Enum.Font.SourceSans
+    TextButton_4.Text = "Mark autowalk position"
+    TextButton_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_4.TextScaled = true
+
+    Frame.Parent = ScreenGui
+    Frame.BackgroundTransparency = 1
+    Frame.Size = UDim2.new(1, 0, 1, 0)
+    Frame.Visible = false
+
+    ImageLabel.Parent = Frame
+    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel.BackgroundTransparency = 1
+    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ImageLabel.Size = UDim2.new(0.5, 0, 0.5, 0)
+    ImageLabel.Image = "http://www.roblox.com/asset/?id=9317442236"
+    ImageLabel.ScaleType = Enum.ScaleType.Fit
+
+    Down.Name = "Down"
+    Down.Parent = Frame
+    Down.AnchorPoint = Vector2.new(0.5, 0.5)
+    Down.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Down.BackgroundTransparency = 1
+    Down.Position = UDim2.new(0.5, 0, 0.7, 0)
+    Down.Size = UDim2.new(0.05, 0, 0.1, 0)
+    Down.Font = Enum.Font.SourceSans
+    Down.Text = "X"
+    Down.TextColor3 = Color3.fromRGB(255, 0, 4)
+    Down.TextScaled = true
+ 
+    Up.Name = "Up"
+    Up.Parent = Frame
+    Up.AnchorPoint = Vector2.new(0.5, 0.5)
+    Up.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Up.BackgroundTransparency = 1
+    Up.Position = UDim2.new(0.5, 0, 0.3, 0)
+    Up.Size = UDim2.new(0.05, 0, 0.1, 0)
+    Up.Font = Enum.Font.SourceSans
+    Up.Text = "X"
+    Up.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Up.TextScaled = true
+
+    Left.Name = "Left"
+    Left.Parent = Frame
+    Left.AnchorPoint = Vector2.new(0.5, 0.5)
+    Left.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Left.BackgroundTransparency = 1
+    Left.Position = UDim2.new(0.4, 0, 0.5, 0)
+    Left.Size = UDim2.new(0.05, 0, 0.1, 0)
+    Left.Font = Enum.Font.SourceSans
+    Left.Text = "X"
+    Left.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Left.TextScaled = true
+
+    Right.Name = "Right"
+    Right.Parent = Frame
+    Right.AnchorPoint = Vector2.new(0.5, 0.5)
+    Right.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Right.BackgroundTransparency = 1
+    Right.Position = UDim2.new(0.6, 0, 0.5, 0)
+    Right.Size = UDim2.new(0.05, 0, 0.1, 0)
+    Right.Font = Enum.Font.SourceSans
+    Right.Text = "X"
+    Right.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Right.TextScaled = true
+
+    TextLabel_6.Parent = Frame
+    TextLabel_6.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_6.BackgroundTransparency = 1
+    TextLabel_6.Position = UDim2.new(0.58, 0, 0.4, 0)
+    TextLabel_6.Size = UDim2.new(0.1, 0, 0.05, 0)
+    TextLabel_6.Font = Enum.Font.SourceSans
+    TextLabel_6.Text = "<-- these are leaderboards btw"
+    TextLabel_6.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_6.TextScaled = true
+
+    Down.MouseButton1Up:Connect(function()
+        Down.TextColor3 = Color3.new(1,0,0)
+        Up.TextColor3 = Color3.new(0,0,0)
+        Left.TextColor3 = Color3.new(0,0,0)
+        Right.TextColor3 = Color3.new(0,0,0)
+        walkpart.Position = Vector3.new(0, 1, -24)
+    end)
+    Up.MouseButton1Up:Connect(function()
+        Down.TextColor3 = Color3.new(0,0,0)
+        Up.TextColor3 = Color3.new(1,0,0)
+        Left.TextColor3 = Color3.new(0,0,0)
+        Right.TextColor3 = Color3.new(0,0,0)
+        walkpart.Position = Vector3.new(0, 1, 24)
+    end)
+    Left.MouseButton1Up:Connect(function()
+        Down.TextColor3 = Color3.new(0,0,0)
+        Up.TextColor3 = Color3.new(0,0,0)
+        Left.TextColor3 = Color3.new(1,0,0)
+        Right.TextColor3 = Color3.new(0,0,0)
+        walkpart.Position = Vector3.new(24, 1, 0)
+    end)
+    Right.MouseButton1Up:Connect(function()
+        Down.TextColor3 = Color3.new(0,0,0)
+        Up.TextColor3 = Color3.new(0,0,0)
+        Left.TextColor3 = Color3.new(0,0,0)
+        Right.TextColor3 = Color3.new(1,0,0)
+        walkpart.Position = Vector3.new(-24, 1, 0)
+    end)
+    TextButton_4.MouseButton1Up:Connect(function()
+        if markpos then
+            markpos = false
+            TextButton_4.BackgroundColor3 = Color3.new(1,1,1)
+            Frame.Visible = false
+            TextButton_4.Text = "Change autowalk position"
+        else
+            markpos = true
+            TextButton_4.BackgroundColor3 = Color3.new(0,1,0)
+            Frame.Visible = true
+            TextButton_4.Text = "Close"
+        end
+    end)
+    TextButton_3.MouseButton1Up:Connect(function()
+        if silent then
+            silent = false
+            TextButton_3.BackgroundColor3 = Color3.new(1,1,1)
+        else
+            silent = true
+            TextButton_3.BackgroundColor3 = Color3.new(0,1,0)
+        end
+    end)
+    TextButton_2.MouseButton1Up:Connect(function()
+        if autowalk then
+            autowalk = false
+            TextButton_2.BackgroundColor3 = Color3.new(1,1,1)
+        else
+            autowalk = true
+            TextButton_2.BackgroundColor3 = Color3.new(0,1,0)
+        end
+        while true do
+            wait(.1)
+            if autowalk then
+                game.Players.LocalPlayer.Character.Humanoid:MoveTo(walkpart.Position)
+            else break end
+        end
+    end)
+    TextButtonH.MouseButton1Up:Connect(function()
+        Frame_2.Visible = not Frame_2.Visible
+        if Frame_2.Visible then
+            TextLabel_2.Transparency = .5
+        else
+            TextLabel_2.Transparency = .8
+        end
+    end)
+    TextButton.MouseButton1Up:Connect(function()
+        followGui("Paste the @username and press V to make the bot go to this player (you can't change the player, keep that in mind), otherwise press X; also if the gui doesnt close when you pressed V, you probably made a typo in username; WARNING: IF YOU PRESS V THEN THIS WILL STOP WORKING IF PLAYER WHO IS FOLLOWED LEAVES THE GAME")
+    end)
 elseif game.PlaceId == 6403373529 then -- slap battles
     local silentpart = Instance.new("Part", game.Workspace)
     silentpart.Position = Vector3.new(21469,420,21469)
