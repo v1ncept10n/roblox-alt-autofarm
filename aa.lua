@@ -1,7 +1,10 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
 -- settings (wip)
-local mainAcc = "UsernameOfYourMainAccountHere"
+local antiAfk = true -- if true, you dont get kicked for being afk for 20 mins
+local mainAcc = "UsernameOfYourMainAccountHere" -- not used rn
 -- script itself, dont change anything
+if antiAfk then
+    loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
+end
 local supported = {2572204670, 5278850819, 6403373529}
 local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
 local status
@@ -82,7 +85,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 2.1.1 by serglight"; 
+    Title    = "Alt Autofarm 2.1.2 by serglight"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
