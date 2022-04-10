@@ -31,3 +31,6 @@ removed silent in saafytoo because anticheat is too good (and i didnt script it 
 
 2.1.2
 ACTUALLY fixed follow gui, new setting added
+
+2.1.3
+waitforchild in follow gui timeout 11 --> 60
