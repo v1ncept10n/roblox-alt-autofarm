@@ -51,7 +51,6 @@ local function followGui(desc) -- follow gui function
     fgui5.Text = desc
     fgui5.TextScaled = true
     fgui3.MouseButton1Up:Connect(function()
-        notfollowing = true
         fgui:Destroy()
     end)
     game.Players.ChildRemoved:Connect(function(instance)
@@ -83,7 +82,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 2.1.0 by serglight"; 
+    Title    = "Alt Autofarm 2.1.1 by serglight"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
@@ -94,7 +93,7 @@ game.StarterGui:SetCore("SendNotification", {
 if game.PlaceId == 2572204670 then -- mugen
     while true do
         wait(.2)
-        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
+        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
     end
 elseif game.PlaceId == 5278850819 then -- saafytoo
     game.Workspace.Structure.KillPart:Destroy()
@@ -149,7 +148,7 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
     TextButtonH.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextButtonH.TextScaled = true
 
-    TextButton.Parent = Frame_2
+    TextButton.Parent = ScreenGui
     TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextButton.BackgroundTransparency = 0.35
     TextButton.Position = UDim2.new(0.8, 0, 0.1, 0)
@@ -207,26 +206,6 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
     TextButton_2.Text = "Autowalk"
     TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextButton_2.TextScaled = true
-
-    TextLabel_5.Parent = Frame_2
-    TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel_5.BackgroundTransparency = 0.5
-    TextLabel_5.Position = UDim2.new(0.4, 0, 0.1, 0)
-    TextLabel_5.Size = UDim2.new(0.2, 0, 0.1, 0)
-    TextLabel_5.Font = Enum.Font.SourceSans
-    TextLabel_5.Text = "All it does is ground becomes cancollide false and killbrick is gone, there's a big platform below)"
-    TextLabel_5.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel_5.TextScaled = true
-
-    TextButton_3.Parent = Frame_2
-    TextButton_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton_3.BackgroundTransparency = 0.35
-    TextButton_3.Position = UDim2.new(0.3, 0, 0.1, 0)
-    TextButton_3.Size = UDim2.new(0.1, 0, 0.1, 0)
-    TextButton_3.Font = Enum.Font.SourceSans
-    TextButton_3.Text = "Silent"
-    TextButton_3.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton_3.TextScaled = true
 
     TextButton_4.Parent = Frame_2
     TextButton_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -350,15 +329,6 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
             TextButton_4.BackgroundColor3 = Color3.new(0,1,0)
             Frame.Visible = true
             TextButton_4.Text = "Close"
-        end
-    end)
-    TextButton_3.MouseButton1Up:Connect(function()
-        if silent then
-            silent = false
-            TextButton_3.BackgroundColor3 = Color3.new(1,1,1)
-        else
-            silent = true
-            TextButton_3.BackgroundColor3 = Color3.new(0,1,0)
         end
     end)
     TextButton_2.MouseButton1Up:Connect(function()
