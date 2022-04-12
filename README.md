@@ -8,7 +8,7 @@ changelog
 version format: X.Y.Z
 
 X - new game is added;
-Y - old game's script changed significantly (that includes new features);
+Y - script's parts (like followgui or old game's script) changed significantly (that includes new features);
 Z - old game's script has been unpatched/minor changes to script.
 
 1.0.0
