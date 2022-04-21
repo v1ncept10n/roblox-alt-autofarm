@@ -1,6 +1,5 @@
 # Roblox Alt Autofarm
-loadstring below
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/v1ncept10n/roblox-alt-autofarm/main/aa.lua"), true))()
+loadstring: `loadstring(game:HttpGet(("https://raw.githubusercontent.com/v1ncept10n/roblox-alt-autofarm/main/aa.lua"), true))()`
 
 hi this is roblox alt autofarm thing. this makes your alt accounts automated and do all the stuff for you (all you need to do is check your main account, maybe)
 i will try to add as many games that support alt farming as i can
