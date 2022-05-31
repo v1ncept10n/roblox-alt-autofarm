@@ -1,5 +1,5 @@
 # Roblox Alt Autofarm
-# When "You fool, I have 70 alternate accounts" is taken personally.
+When "You fool, I have 70 alternate accounts" is taken personally.
 
 loadstring: `loadstring(game:HttpGet(("https://raw.githubusercontent.com/v1ncept10n/roblox-alt-autofarm/main/aa.lua"), true))()`
 
