@@ -1,4 +1,6 @@
 # Roblox Alt Autofarm
+# When "You fool, I have 70 alternate accounts" is taken personally.
+
 loadstring: `loadstring(game:HttpGet(("https://raw.githubusercontent.com/v1ncept10n/roblox-alt-autofarm/main/aa.lua"), true))()`
 
 hi this is roblox alt autofarm thing. this makes your alt accounts automated and do all the stuff for you (all you need to do is check your main account, maybe)
