@@ -29,7 +29,9 @@ fixed follow gui (probably)
 
 2.1.0
 saafytoo has been rescripted into a gui
+  
   now you can choose where to place the bots
+  
   and even toggle it
 
 2.1.1
@@ -46,8 +48,13 @@ prob fixed follow gui sometimes stopping following a player for no reason
 
 3.0.0
 removed mugen from supported because "others" tab can do better
+
 new game added (life sentence)
+
 new setting to check if you want to have "others" tab in non-supported games
+
 COMPLETELY remade follow gui
+  
   added modes (walk, tween which is not done yet (i am sorry) and teleport)
+  
   you can cancel the follow now
