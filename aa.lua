@@ -1,11 +1,13 @@
 -- settings (wip)
-local antiAfk = true -- if true, you dont get kicked for being afk for 20 mins
-local mainAcc = "UsernameOfYourMainAccountHere" -- not used rn
--- script itself, dont change anything
+local antiAfk = true -- true/false    if true, you dont get kicked for being afk for 20 mins
+local mainAcc = "UsernameOfYourMainAccountHere" -- string    not used rn
+local ignoreSupported = true -- true/false    if true, this script will still load even if game is not supported (the only category that will load is "others")
+
+-- script
 if antiAfk then
     loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
 end
-local supported = {2572204670, 5278850819, 6403373529}
+local supported = {5278850819, 6403373529, 7860844204}
 local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
 local status
 local msg
@@ -16,64 +18,257 @@ for i=1, 10 do
     local rand = math.random(#char)
     nam = nam..char[rand]
 end
-local function followGui(desc) -- follow gui function
+local function followGui() -- follow gui function
+    local folScreenGui = Instance.new("ScreenGui")
+    local user = Instance.new("TextBox")
+    local X = Instance.new("TextButton")
+    local C = Instance.new("TextButton")
+    local help = Instance.new("TextLabel")
+    local V = Instance.new("TextButton")
+    local htype = Instance.new("TextLabel")
+    local ftype = Instance.new("TextButton")
+    local hs = Instance.new("TextLabel")
+    local s1 = Instance.new("TextButton")
+    local s2 = Instance.new("TextButton")
+    local s3 = Instance.new("TextButton")
+
     local follow = ""
-    local fgui = Instance.new("ScreenGui")
-    fgui.Parent = game.CoreGui
-    local fgui2 = Instance.new("TextBox")
-    fgui2.BackgroundColor3 = Color3.new(1,1,1)
-    fgui2.Parent = fgui
-    fgui2.AnchorPoint = Vector2.new(0.5, 0.5)
-    fgui2.Position = UDim2.new(0.5, 0, 0.5, 0)
-    fgui2.Size = UDim2.new(0.25, 0, 0.25, 0)
-    fgui2.TextScaled = true
-    local fgui3 = Instance.new("TextButton")
-    fgui3.Parent = fgui
-    fgui3.AnchorPoint = Vector2.new(0.5, 0.5)
-    fgui3.Position = UDim2.new(0.437, 0, 0.657, 0)
-    fgui3.Text = "X"
-    fgui3.BackgroundColor3 = Color3.new(1,0,0)
-    fgui3.Transparency = 0
-    fgui3.Size = UDim2.new(0.125, 0, 0, 50)
-    fgui3.TextScaled = true
-    local fgui4 = Instance.new("TextButton")
-    fgui4.Parent = fgui
-    fgui4.AnchorPoint = Vector2.new(0.5, 0.5)
-    fgui4.Position = UDim2.new(0.562, 0, 0.657, 0)
-    fgui4.Text = "V"
-    fgui4.BackgroundColor3 = Color3.new(0,1,0)
-    fgui4.Transparency = 0
-    fgui4.Size = UDim2.new(0.125, 0, 0, 50)
-    fgui4.TextScaled = true
-    local fgui5 = Instance.new("TextLabel")
-    fgui5.BackgroundColor3 = Color3.new(1,1,1)
-    fgui5.Parent = fgui
-    fgui5.AnchorPoint = Vector2.new(0.5, 0.5)
-    fgui5.Position = UDim2.new(0.5, 0, 0.228, 0)
-    fgui5.Size = UDim2.new(0.25, 0, 0.293, 0)
-    fgui5.Text = desc
-    fgui5.TextScaled = true
-    fgui3.MouseButton1Up:Connect(function()
-        fgui:Destroy()
+    local followenabled = false
+    local px,pz = 3,0 -- unused
+    local followtype = 1 -- 1 walk, 2 tween, 3 teleport
+    local TweenService = game:GetService("TweenService")
+
+    folScreenGui.Parent = game.CoreGui
+
+    user.Name = "user"
+    user.Parent = folScreenGui
+    user.AnchorPoint = Vector2.new(0.5, 0.5)
+    user.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    user.BackgroundTransparency = 0.25
+    user.Position = UDim2.new(0.5, 0, 0.5, 0)
+    user.Size = UDim2.new(0.35, 0, 0.15, 0)
+    user.PlaceholderText = "@username"
+    user.Text = ""
+    user.TextScaled = true
+
+    X.Name = "X"
+    X.Parent = folScreenGui
+    X.AnchorPoint = Vector2.new(0.5, 0.5)
+    X.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    X.BackgroundTransparency = 0.25
+    X.Position = UDim2.new(0.375, 0, 0.625, 0)
+    X.Size = UDim2.new(0.1, 0, 0.1, 0)
+    X.Text = "X"
+    X.TextScaled = true
+
+    C.Name = "C"
+    C.Parent = folScreenGui
+    C.AnchorPoint = Vector2.new(0.5, 0.5)
+    C.BackgroundColor3 = Color3.fromRGB(255, 179, 0)
+    C.BackgroundTransparency = 0.25
+    C.Position = UDim2.new(0.375, 0, 0.725, 0)
+    C.Size = UDim2.new(0.1, 0, 0.1, 0)
+    C.Text = "C"
+    C.TextScaled = true
+
+    help.Name = "help"
+    help.Parent = folScreenGui
+    help.AnchorPoint = Vector2.new(0.5, 0.5)
+    help.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    help.BackgroundTransparency = 0.5
+    help.Position = UDim2.new(0.5, 0, 0.25, 0)
+    help.Size = UDim2.new(0.35, 0, 0.35, 0)
+    help.Text = "Paste @username (case sensitive) and select follow method, then press V to follow the player. Press X to close this window. C to stop following."
+    help.TextScaled = true
+
+    V.Name = "V"
+    V.Parent = folScreenGui
+    V.AnchorPoint = Vector2.new(0.5, 0.5)
+    V.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    V.BackgroundTransparency = 0.25
+    V.Position = UDim2.new(0.375, 0, 0.825, 0)
+    V.Size = UDim2.new(0.1, 0, 0.1, 0)
+    V.Text = "V"
+    V.TextScaled = true
+
+    htype.Name = "htype"
+    htype.Parent = folScreenGui
+    htype.AnchorPoint = Vector2.new(0.5, 0.5)
+    htype.BackgroundColor3 = Color3.fromRGB(200, 255, 200)
+    htype.BackgroundTransparency = 0.25
+    htype.Position = UDim2.new(0.487, 0, 0.625, 0)
+    htype.Size = UDim2.new(0.125, 0, 0.1, 0)
+    htype.Text = "Select follow method (click to change)"
+    htype.TextScaled = true
+
+    ftype.Name = "type"
+    ftype.Parent = folScreenGui
+    ftype.AnchorPoint = Vector2.new(0.5, 0.5)
+    ftype.BackgroundColor3 = Color3.fromRGB(200, 255, 200)
+    ftype.BackgroundTransparency = 0.5
+    ftype.Position = UDim2.new(0.612, 0, 0.625, 0)
+    ftype.Size = UDim2.new(0.125, 0, 0.1, 0)
+    ftype.Text = "Walk (safest)"
+    ftype.TextScaled = true
+
+    --[[hs.Name = "hs"
+    hs.Parent = folScreenGui
+    hs.AnchorPoint = Vector2.new(0.5, 0.5)
+    hs.BackgroundColor3 = Color3.fromRGB(200, 200, 255)
+    hs.BackgroundTransparency = 0.25
+    hs.Position = UDim2.new(0.487, 0, 0.725, 0)
+    hs.Size = UDim2.new(0.125, 0, 0.1, 0)
+    hs.Text = "Settings"
+    hs.TextScaled = true
+
+    s1.Name = "s1"
+    s1.Parent = folScreenGui
+    s1.AnchorPoint = Vector2.new(0.5, 0.5)
+    s1.BackgroundColor3 = Color3.fromRGB(200, 200, 255)
+    s1.BackgroundTransparency = 0.5
+    s1.Position = UDim2.new(0.612, 0, 0.725, 0)
+    s1.Size = UDim2.new(0.125, 0, 0.1, 0)
+    s1.Text = "set1"
+    s1.TextScaled = true
+
+    s2.Name = "s2"
+    s2.Parent = folScreenGui
+    s2.AnchorPoint = Vector2.new(0.5, 0.5)
+    s2.BackgroundColor3 = Color3.fromRGB(200, 200, 255)
+    s2.BackgroundTransparency = 0.5
+    s2.Position = UDim2.new(0.612, 0, 0.825, 0)
+    s2.Size = UDim2.new(0.125, 0, 0.1, 0)
+    s2.Text = "set2"
+    s2.TextScaled = true
+
+    s3.Name = "s3"
+    s3.Parent = folScreenGui
+    s3.AnchorPoint = Vector2.new(0.5, 0.5)
+    s3.BackgroundColor3 = Color3.fromRGB(200, 200, 255)
+    s3.BackgroundTransparency = 0.5
+    s3.Position = UDim2.new(0.487, 0, 0.825, 0)
+    s3.Size = UDim2.new(0.125, 0, 0.1, 0)
+    s3.Text = "set3"
+    s3.TextScaled = true]]
+
+    -- settings, coming soon
+
+    X.MouseButton1Up:Connect(function()
+        folScreenGui:Destroy()
     end)
-    game.Players.ChildRemoved:Connect(function(instance)
-        if instance.Name == follow then
-            error(instance.Name.. " left the game, stopping following")
-        end
+    C.MouseButton1Up:Connect(function()
+        followenabled = false
     end)
-    fgui4.MouseButton1Up:Connect(function()
-        follow = fgui2.Text
+    V.MouseButton1Up:Connect(function()
+        follow = user.Text
         for i,v in pairs(game.Players:GetChildren()) do
             if v.Name == follow then
-                fgui:Destroy()
-                while true do
-                    wait(.1)
-                    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") then
-                        game.Players.LocalPlayer.Character:WaitForChild("Humanoid",60):MoveTo(v.Character:WaitForChild("HumanoidRootPart",60).Position)
+                followenabled = true
+                if followtype == 1 then
+                    while true do
+                        if followenabled then
+                            wait(.1)
+                            game.Players.LocalPlayer.Character:WaitForChild("Humanoid",11):MoveTo(v.Character:WaitForChild("HumanoidRootPart",11).Position)
+                        else break end
                     end
+                elseif followtype == 2 then
+                    -- todo: make this work
+                elseif followtype == 3 then
+                    while true do
+                        if followenabled then
+                            wait()
+                            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart") then
+                                game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame + Vector3.new(px,0,pz)
+                            end
+                        else break end
+                    end
+                else
+                    warn("Couldn't follow a player: something went wrong with follow type (somehow)")
                 end
             end
         end
+    end)
+    ftype.MouseButton1Up:Connect(function()
+        if followtype == 1 then
+            ftype.Text = "Tween (balanced?) NOT WORKING"
+            followtype = 2
+        elseif followtype == 2 then
+            ftype.Text = "Teleport (fastest)"
+            followtype = 3
+        elseif followtype == 3 then
+            ftype.Text = "Walk (safest)"
+            followtype = 1
+        end
+    end)
+    --[[s1.MouseButton1Up:Connect(function()
+        
+    end)
+    s2.MouseButton1Up:Connect(function()
+        
+    end)
+    s3.MouseButton1Up:Connect(function()
+        
+    end)]]
+end
+local function loadOthers()
+    local help = Instance.new("ScreenGui")
+    local OthersTL1 = Instance.new("TextLabel", help)
+    local OthersTL2 = Instance.new("TextLabel", help)
+    local OthersTB1 = Instance.new("TextButton", help)
+    local OthersTL3 = Instance.new("TextLabel", help)
+    local OthersTB2 = Instance.new("TextButton", help)
+    help.Parent = game.CoreGui
+    help.Name = "AA_Others"
+
+    OthersTL1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OthersTL1.BackgroundTransparency = 0.5
+    OthersTL1.Position = UDim2.new(0.8, 0, 0, 0)
+    OthersTL1.Size = UDim2.new(0.2, 0, 0.1, 0)
+    OthersTL1.Font = Enum.Font.SourceSans
+    OthersTL1.Text = "Others"
+    OthersTL1.TextColor3 = Color3.fromRGB(0, 0, 0)
+    OthersTL1.TextScaled = true
+
+    OthersTL2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OthersTL2.BackgroundTransparency = 0.5
+    OthersTL2.Position = UDim2.new(0.9, 0, 0.1, 0)
+    OthersTL2.Size = UDim2.new(0.1, 0, 0.15, 0)
+    OthersTL2.Font = Enum.Font.SourceSans
+    OthersTL2.Text = "Make the bot follow any player you wish"
+    OthersTL2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    OthersTL2.TextScaled = true
+
+    OthersTB1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OthersTB1.BackgroundTransparency = 0.35
+    OthersTB1.Position = UDim2.new(0.8, 0, 0.1, 0)
+    OthersTB1.Size = UDim2.new(0.1, 0, 0.15, 0)
+    OthersTB1.Font = Enum.Font.SourceSans
+    OthersTB1.Text = "Follower GUI"
+    OthersTB1.TextColor3 = Color3.fromRGB(0, 0, 0)
+    OthersTB1.TextScaled = true
+
+    --[[OthersTL3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OthersTL3.BackgroundTransparency = 0.5
+    OthersTL3.Position = UDim2.new(0.9, 0, 0.25, 0)
+    OthersTL3.Size = UDim2.new(0.1, 0, 0.1, 0)
+    OthersTL3.Font = Enum.Font.SourceSans
+    OthersTL3.Text = "Creates a wall out of bots, which can probably push the person"
+    OthersTL3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    OthersTL3.TextScaled = true
+
+    OthersTB2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OthersTB2.BackgroundTransparency = 0.35
+    OthersTB2.Position = UDim2.new(0.8, 0, 0.25, 0)
+    OthersTB2.Size = UDim2.new(0.1, 0, 0.1, 0)
+    OthersTB2.Font = Enum.Font.SourceSans
+    OthersTB2.Text = "Swarm Push"
+    OthersTB2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    OthersTB2.TextScaled = true]]
+
+    -- this one will be very fun. coming soon
+
+    OthersTB1.MouseButton1Up:Connect(function()
+        followGui()
     end)
 end
 for i,v in ipairs(supported) do
@@ -87,7 +282,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 2.1.4 by serglight"; 
+    Title    = "Alt Autofarm 3.0.0 by v1ncept10n"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
@@ -95,17 +290,8 @@ game.StarterGui:SetCore("SendNotification", {
     Button1  = msg;
 })
 
-if game.PlaceId == 2572204670 then -- mugen
-    while true do
-        wait(.2)
-        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10).CFrame = CFrame.new(23.6253471, 37.8501015, -158.833344, 0.137753755, -1.50884674e-08, 0.990466535, 7.29230143e-09, 1, 1.42194869e-08, -0.990466535, 5.26399235e-09, 0.137753755)
-    end
-elseif game.PlaceId == 5278850819 then -- saafytoo
-    local silentpart = Instance.new("Part", game.Workspace)
-    silentpart.Position = Vector3.new(0, -4, 0)
-    silentpart.Anchored = true
-    silentpart.Size = Vector3.new(128,1,128)
-    silentpart.Name = nam
+if game.PlaceId == 5278850819 then -- saafytoo
+    loadOthers()
     local walkpart = Instance.new("Part", game.Workspace)
     walkpart.Position = Vector3.new(0, 1, -24)
     walkpart.Anchored = true
@@ -113,10 +299,7 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
     walkpart.Transparency = 1
     walkpart.Name = nam
     local ScreenGui = Instance.new("ScreenGui")
-    local TextButton = Instance.new("TextButton")
-    local TextLabel = Instance.new("TextLabel")
     local TextLabel_2 = Instance.new("TextLabel")
-    local TextLabel_3 = Instance.new("TextLabel")
     local TextLabel_4 = Instance.new("TextLabel")
     local TextButton_2 = Instance.new("TextButton")
     local TextLabel_5 = Instance.new("TextLabel")
@@ -152,26 +335,6 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
     TextButtonH.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextButtonH.TextScaled = true
 
-    TextButton.Parent = ScreenGui
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 0.35
-    TextButton.Position = UDim2.new(0.8, 0, 0.1, 0)
-    TextButton.Size = UDim2.new(0.1, 0, 0.15, 0)
-    TextButton.Font = Enum.Font.SourceSans
-    TextButton.Text = "Follower GUI"
-    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton.TextScaled = true
-
-    TextLabel.Parent = ScreenGui
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 0.5
-    TextLabel.Position = UDim2.new(0.9, 0, 0.1, 0)
-    TextLabel.Size = UDim2.new(0.1, 0, 0.15, 0)
-    TextLabel.Font = Enum.Font.SourceSans
-    TextLabel.Text = "Make the bot autowalk to any player you wish (a GUI will show up with instructions)"
-    TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel.TextScaled = true
-
     TextLabel_2.Parent = ScreenGui
     TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel_2.BackgroundTransparency = 0.5
@@ -180,16 +343,6 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
     TextLabel_2.Text = "Main"
     TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextLabel_2.TextScaled = true
-
-    TextLabel_3.Parent = ScreenGui
-    TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel_3.BackgroundTransparency = 0.5
-    TextLabel_3.Position = UDim2.new(0.8, 0, 0, 0)
-    TextLabel_3.Size = UDim2.new(0.2, 0, 0.1, 0)
-    TextLabel_3.Font = Enum.Font.SourceSans
-    TextLabel_3.Text = "Others"
-    TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel_3.TextScaled = true
 
     TextLabel_4.Parent = Frame_2
     TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -358,9 +511,6 @@ elseif game.PlaceId == 5278850819 then -- saafytoo
             TextLabel_2.Transparency = .8
         end
     end)
-    TextButton.MouseButton1Up:Connect(function()
-        followGui("Paste the @username and press V to make the bot go to this player (you can't change the player, keep that in mind), otherwise press X; also if the gui doesnt close when you pressed V, you probably made a typo in username; WARNING: IF YOU PRESS V THEN THIS WILL STOP WORKING IF PLAYER WHO IS FOLLOWED LEAVES THE GAME")
-    end)
 elseif game.PlaceId == 6403373529 then -- slap battles
     local silentpart = Instance.new("Part", game.Workspace)
     silentpart.Position = Vector3.new(21469,420,21469)
@@ -420,10 +570,7 @@ elseif game.PlaceId == 6403373529 then -- slap battles
     local autodie = false
 
     local ScreenGui = Instance.new("ScreenGui")
-    local TextButton = Instance.new("TextButton")
-    local TextLabel = Instance.new("TextLabel")
     local TextLabel_2 = Instance.new("TextLabel")
-    local TextLabel_3 = Instance.new("TextLabel")
     local TextButton_2 = Instance.new("TextButton")
     local main1 = Instance.new("Frame")
     local TextButton_3 = Instance.new("TextButton")
@@ -439,26 +586,6 @@ elseif game.PlaceId == 6403373529 then -- slap battles
 
     ScreenGui.Parent = game.CoreGui
 
-    TextButton.Parent = ScreenGui
-    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextButton.BackgroundTransparency = 0.3
-    TextButton.Position = UDim2.new(0.8, 0, 0.1, 0)
-    TextButton.Size = UDim2.new(0.1, 0, 0.15, 0)
-    TextButton.Font = Enum.Font.SourceSans
-    TextButton.Text = "Follower GUI"
-    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextButton.TextScaled = true
-
-    TextLabel.Parent = ScreenGui
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 0.5
-    TextLabel.Position = UDim2.new(0.9, 0, 0.1, 0)
-    TextLabel.Size = UDim2.new(0.1, 0, 0.15, 0)
-    TextLabel.Font = Enum.Font.SourceSans
-    TextLabel.Text = "Make the bot autowalk to any player you wish (a GUI will show up with instructions)"
-    TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel.TextScaled = true
-
     TextLabel_2.Parent = ScreenGui
     TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel_2.BackgroundTransparency = 0.5
@@ -467,16 +594,6 @@ elseif game.PlaceId == 6403373529 then -- slap battles
     TextLabel_2.Text = "Main"
     TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextLabel_2.TextScaled = true
-
-    TextLabel_3.Parent = ScreenGui
-    TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel_3.BackgroundTransparency = 0.5
-    TextLabel_3.Position = UDim2.new(0.8, 0, 0, 0)
-    TextLabel_3.Size = UDim2.new(0.2, 0, 0.1, 0)
-    TextLabel_3.Font = Enum.Font.SourceSans
-    TextLabel_3.Text = "Others"
-    TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextLabel_3.TextScaled = true
 
     TextButton_2.Parent = ScreenGui
     TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -530,7 +647,7 @@ elseif game.PlaceId == 6403373529 then -- slap battles
     TextButton_6.Position = UDim2.new(0, 0, 0.2, 0)
     TextButton_6.Size = UDim2.new(0.1, 0, 0.1, 0)
     TextButton_6.Font = Enum.Font.SourceSans
-    TextButton_6.Text = "Anti MEGAROCK"
+    TextButton_6.Text = "Anti MEGAROCK (not implemented)"
     TextButton_6.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextButton_6.TextScaled = true
 
@@ -593,10 +710,6 @@ elseif game.PlaceId == 6403373529 then -- slap battles
     TextLabel_8.Text = "Sometimes player who got slapped multiple times will glitch and ragdoll indefinitely, resetting will unragdoll you, works best with \"auto tp to normal arena\" feature (you'll die every 10 seconds)"
     TextLabel_8.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextLabel_8.TextScaled = true
-
-    TextButton.MouseButton1Up:Connect(function()
-        followGui("Paste the @username and press V to make the bot go to this player (you can't change the player, keep that in mind), otherwise press X (bots will stay still); also if the gui doesnt close when you pressed V, you probably made a typo in username; WARNING: IF YOU PRESS V THEN THIS WILL STOP WORKING IF PLAYER WHO IS FOLLOWED LEAVES THE GAME")
-    end)
 
     TextButton_2.MouseButton1Up:Connect(function()
         main1.Visible = not main1.Visible
@@ -721,4 +834,196 @@ elseif game.PlaceId == 6403373529 then -- slap battles
             end
         end)
     end)
+elseif game.PlaceId == 7860844204 then -- life sentence
+    local oi = nil
+    oi = hookmetamethod(game, "__index", function(Self, Key)
+        if not checkcaller() and tostring(Self) == "TeleportPass" and Key == "Value" then
+            return true
+        end
+        return oi(Self, Key)
+    end) -- tp bypass
+    local vim = game:service'VirtualInputManager'
+    local help = Instance.new("ScreenGui")
+    local main1 = Instance.new("Frame")
+    local TextButton = Instance.new("TextButton")
+    local TextButton_2 = Instance.new("TextButton")
+    local TextLabel = Instance.new("TextLabel")
+    local TextLabel_2 = Instance.new("TextLabel")
+    local TextLabel_5 = Instance.new("TextLabel")
+    local TextLabel_6 = Instance.new("TextLabel")
+    local TextButton_3 = Instance.new("TextButton")
+    local TextButton_4 = Instance.new("TextButton")
+    local TextButton_5 = Instance.new("TextButton")
+    local autofarm = false
+    local drop = false
+    local collect = false
+    help.Parent = game.CoreGui
+
+    main1.Name = "main1"
+    main1.Parent = help
+    main1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    main1.BackgroundTransparency = 1
+    main1.Size = UDim2.new(1, 0, 1, 0)
+
+    TextButton.Parent = main1
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 0.35
+    TextButton.Position = UDim2.new(0, 0, 0.2, 0)
+    TextButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = "Autodrop money"
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextScaled = true
+
+    TextButton_2.Parent = main1
+    TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_2.BackgroundTransparency = 0.35
+    TextButton_2.Position = UDim2.new(0, 0, 0.1, 0)
+    TextButton_2.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextButton_2.Font = Enum.Font.SourceSans
+    TextButton_2.Text = "Autofarm (workshop)"
+    TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_2.TextScaled = true
+
+    TextButton_5.Parent = main1
+    TextButton_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_5.BackgroundTransparency = 0.35
+    TextButton_5.Position = UDim2.new(0, 0, 0.3, 0)
+    TextButton_5.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextButton_5.Font = Enum.Font.SourceSans
+    TextButton_5.Text = "Autocollect money"
+    TextButton_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_5.TextScaled = true
+
+    TextLabel.Parent = main1
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 0.5
+    TextLabel.Position = UDim2.new(0.1, 0, 0.1, 0)
+    TextLabel.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = "Teleports to workshop and autopresses R for you (4$ in 5 seconds)"
+    TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.TextScaled = true
+
+    TextLabel_2.Parent = main1
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 0.5
+    TextLabel_2.Position = UDim2.new(0.1, 0, 0.2, 0)
+    TextLabel_2.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.Text = "Automatically drop 35$"
+    TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_2.TextScaled = true
+
+    TextLabel_5.Parent = help
+    TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_5.BackgroundTransparency = 0.5
+    TextLabel_5.Size = UDim2.new(0.2, 0, 0.1, 0)
+    TextLabel_5.Font = Enum.Font.SourceSans
+    TextLabel_5.Text = "Main"
+    TextLabel_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_5.TextScaled = true
+
+    TextLabel_6.Parent = main1
+    TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_6.BackgroundTransparency = 0.5
+    TextLabel_6.Size = UDim2.new(0.1, 0, 0.1, 0)
+    TextLabel_6.Position = UDim2.new(0.1, 0, 0.3, 0)
+    TextLabel_6.Font = Enum.Font.SourceSans
+    TextLabel_6.Text = "Collects all cash near you"
+    TextLabel_6.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel_6.TextScaled = true
+
+    TextButton_3.Parent = help
+    TextButton_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_3.BackgroundTransparency = 0.3
+    TextButton_3.Position = UDim2.new(0.2, 0, 0, 0)
+    TextButton_3.Size = UDim2.new(0.1, 0, 0.05, 0)
+    TextButton_3.Font = Enum.Font.SourceSans
+    TextButton_3.Text = "Hide/Open"
+    TextButton_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_3.TextScaled = true
+
+    TextButton_4.Parent = help
+    TextButton_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton_4.BackgroundTransparency = 0.35
+    TextButton_4.Position = UDim2.new(0.8, 0, 0.1, 0)
+    TextButton_4.Size = UDim2.new(0.1, 0, 0.15, 0)
+    TextButton_4.Font = Enum.Font.SourceSans
+    TextButton_4.Text = "Follower GUI"
+    TextButton_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton_4.TextScaled = true
+
+    TextButton_4.MouseButton1Up:Connect(function()
+        followGui()
+    end)
+    TextButton_3.MouseButton1Up:Connect(function()
+        main1.Visible = not main1.Visible
+        if main1.Visible then
+            TextLabel_5.Transparency = .5
+        else
+            TextLabel_5.Transparency = .8
+        end
+    end)
+    TextButton_2.MouseButton1Up:Connect(function()
+        if autofarm then
+            TextButton_2.BackgroundColor3 = Color3.new(1,1,1)
+            autofarm = false
+        else
+            TextButton_2.BackgroundColor3 = Color3.new(0,1,0)
+            autofarm = true
+        end
+        spawn(function()
+            while true do
+                if autofarm then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(186.868393, 8, -136.296494, -0.249878272, -1.50765924e-08, -0.968277276, -1.99319583e-08, 1, -1.04267963e-08, 0.968277276, 1.66942318e-08, -0.249878272)
+                    wait()
+                    vim:SendKeyEvent(true, "R", false, game)
+                    wait(5.5)
+                    vim:SendKeyEvent(false, "R", false, game)
+                else break end
+            end
+        end)
+    end)
+    TextButton.MouseButton1Up:Connect(function()
+        if drop then
+            TextButton.BackgroundColor3 = Color3.new(1,1,1)
+            drop = false
+        else
+            TextButton.BackgroundColor3 = Color3.new(0,1,0)
+            drop = true
+        end
+        spawn(function()
+            while true do
+                if drop then
+                    game:GetService("ReplicatedStorage").Events.DropEvent:FireServer("DropCash", "35")
+                    wait(1)
+                else break end
+            end
+        end)
+    end)
+    TextButton_5.MouseButton1Up:Connect(function()
+        if collect then
+            TextButton_5.BackgroundColor3 = Color3.new(1,1,1)
+            collect = false
+        else
+            TextButton_5.BackgroundColor3 = Color3.new(0,1,0)
+            collect = true
+        end
+        spawn(function()
+            while true do
+                wait()
+                if collect then
+                    for _, v in next, Workspace:GetChildren() do
+                        local Prompt = v:FindFirstChildOfClass("ProximityPrompt")
+                        if Prompt and v.Name == "DroppedCash" and game.Players.LocalPlayer:DistanceFromCharacter(v.Position) < Prompt.MaxActivationDistance then
+                            fireproximityprompt(Prompt)
+                        end
+                    end
+                else break end
+            end
+        end)
+    end)
+elseif ignoreSupported then
+    loadOthers()
 end
