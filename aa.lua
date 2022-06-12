@@ -1,11 +1,10 @@
 -- settings (wip)
 local antiAfk = true -- true/false    if true, you dont get kicked for being afk for 20 mins
 local mainAcc = "UsernameOfYourMainAccountHere" -- string    not used rn
-local ignoreSupported = true -- true/false    if true, this script will still load even if game is not supported (the only category that will load is "others")
-
--- script
+local ignoreSupported = false -- true/false    if true, this script will still load even if game is not supported (the only category that will load is "others")
+-- script itself, dont change anything
 if antiAfk then
-    loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (thx warn)
+    loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))() -- anti afk kick (credits to warn)
 end
 local supported = {5278850819, 6403373529, 7860844204}
 local char = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}
@@ -282,7 +281,7 @@ for i,v in ipairs(supported) do
     end
 end
 game.StarterGui:SetCore("SendNotification", {
-    Title    = "Alt Autofarm 3.0.0 by v1ncept10n"; 
+    Title    = "Alt Autofarm 3.0.1 by v1ncept10n"; 
     Text     = "Game: " ..status; 
     Icon     = ""; 
     Duration = 10;
@@ -512,6 +511,7 @@ if game.PlaceId == 5278850819 then -- saafytoo
         end
     end)
 elseif game.PlaceId == 6403373529 then -- slap battles
+    loadOthers()
     local silentpart = Instance.new("Part", game.Workspace)
     silentpart.Position = Vector3.new(21469,420,21469)
     silentpart.Anchored = true
@@ -835,6 +835,7 @@ elseif game.PlaceId == 6403373529 then -- slap battles
         end)
     end)
 elseif game.PlaceId == 7860844204 then -- life sentence
+    loadOthers()
     local oi = nil
     oi = hookmetamethod(game, "__index", function(Self, Key)
         if not checkcaller() and tostring(Self) == "TeleportPass" and Key == "Value" then
