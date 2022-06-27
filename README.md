@@ -55,7 +55,7 @@ prob fixed follow gui sometimes stopping following a player for no reason
 
 3.0.0
 
-removed mugen from supported because "others" tab can do better
+removed mugen from supported because sword fight went to brazil
 
 new game added (life sentence)
 
